@@ -1,0 +1,40 @@
+{% extends 'base.html' %} {% block heading %} Books List {% endblock heading %}
+
+{% block content %}
+
+<!-- all books -->
+<ul
+  class="mt-10 md:px-4 lg:px-12 xl:px-0 grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4"
+>
+  {% for book in books %}
+  <li class="mb-12 md:mb-4 mx-auto text-center">
+    <h2 class="text-lg font-bold">{{book.name}}</h2>
+    <h4 class="text-xs font-regular text-blue-700 pt-2">{{book.author}}</h4>
+    <h4 class="text-sm pb-2 text-green-700">{{book.category}}</h4>
+    <div class="grid place-items-center p-2">
+      <img
+        src="{{book.image.url}}"
+        alt="{{book.name}}"
+        height="100"
+        width="100"
+        class="mb-4"
+      />
+    </div>
+
+    {% if user.is_superuser %}
+    <a
+      href="/admin/library/book/{{book.id}}/change/"
+      class="text-white hover:shadow-md rounded bg-yellow-400 px-4 py-1"
+      >Edit</a>
+    <a
+      href="/admin/library/book/{{book.id}}/change/"
+      class="text-white hover:shadow-md rounded bg-red-600 px-4 py-1"
+      id = {{book.id}}
+      >Delete</a>
+    {% endif %}
+  </li>
+
+  {% endfor %}
+</ul>
+
+{% endblock content %}
